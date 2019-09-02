@@ -52,6 +52,7 @@ export default {
   methods: {
     handleChange(active) {
       // console.log(active)
+      // this.active = active
     }
   },
 
@@ -64,11 +65,12 @@ export default {
     // setTimeout(() => {
     //   this.active = 'theaters'
     // }, 5000)
+    this.active = this.$route.path.split('/')[1]
   },
 
   watch: {
     $route(to, from) {
-      this.active = to.path.slice(1)
+      this.active = to.path.split('/')[1]
     }
   }
 }

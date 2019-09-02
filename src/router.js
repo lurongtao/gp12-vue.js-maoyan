@@ -7,6 +7,9 @@ import Movies from 'pages/movies/Movies'
 import Theaters from 'pages/theaters/Theaters'
 import Profile from 'pages/profile/Profile'
 
+import Intheater from 'pages/movies/Intheater'
+import Comingsoon from 'pages/movies/Comingsoon'
+
 const router = new Router({
   mode: 'hash',
   routes: [
@@ -16,7 +19,20 @@ const router = new Router({
     },
     {
       path: '/movies',
-      component: Movies
+      component: Movies,
+      redirect: '/movies/intheater',
+      children: [
+        {
+          path: 'intheater',
+          name: 'intheater',
+          component: Intheater
+        },
+        {
+          path: 'comingsoon',
+          name: 'comingsoon',
+          component: Comingsoon
+        }
+      ]
     },
     {
       path: '/theaters',

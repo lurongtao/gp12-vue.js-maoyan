@@ -8,8 +8,8 @@
         </li>
         <li>
           <ul>
-            <li>正在热映</li>
-            <li>即将上映</li>
+            <router-link active-class="active" tag="li" to="/movies/intheater">正在热映</router-link>
+            <router-link active-class="active" tag="li" to="/movies/comingsoon">即将上映</router-link>
           </ul>
         </li>
         <li>
@@ -17,6 +17,9 @@
         </li>
       </ul>
     </nav>
+    <section>
+      <router-view></router-view>
+    </section>
   </div>
 </template>
 
@@ -52,23 +55,35 @@ export default {
       height 100%
       display flex
       padding 0 .15rem
-      border-bottom solid 1px #ccc
+      border1px(0 0 1px 0, #eee)
       > li
         &:nth-child(1)
-          flex 65
+          flex 1
           font-size .15rem
           display flex
           align-items center
           color #666
-          border1px(2px, 3)
           span
             font-size .12rem
             &::after
               content: '\f033'
         &:nth-child(2)
-          flex 265
+          flex 3
+          ul
+            display flex
+            li
+              flex 1
+              line-height .44rem
+              text-align center
+              color #666
+              margin 0 .1rem
+              font-weight 700
+              &.active
+                border-bottom solid 2px #e54847
+                height .44rem
+                color #e54847
         &:nth-child(3)
-          flex 45
+          flex 1
           display flex
           justify-content flex-end
           align-items center
