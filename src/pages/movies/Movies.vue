@@ -49,13 +49,17 @@ export default {
 // }
 
 .movie-container
+  display flex
+  flex-direction column
+  height 100%
   nav
     height .44rem
+    position static
     > ul
       height 100%
       display flex
       padding 0 .15rem
-      border1px(0 0 1px 0, #eee)
+      border1px(0 0 1px 0)
       > li
         &:nth-child(1)
           flex 1
@@ -87,5 +91,15 @@ export default {
           display flex
           justify-content flex-end
           align-items center
+  section 
+    flex 1
+    overflow hidden
 
+>>> .tab-content .list-wrap .item 
+  padding-right .15rem !important
 </style>
+
+// <style lang="stylus">
+// .tab-content .list-wrap .item 
+//   padding-right .15rem !important
+// </style>

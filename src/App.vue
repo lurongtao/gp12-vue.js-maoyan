@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import './assets/styles/reset.css'
+import 'styles/reset.css'
+import 'styles/maoyan.css'
 import Index from './pages/index/Index'
 export default {
   components: {
