@@ -3,9 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import Movies from './pages/movies/Movies'
-import Theaters from './pages/theaters/Theaters'
-import Profile from './pages/profile/Profile'
+import Movies from 'pages/movies/Movies'
+import Theaters from 'pages/theaters/Theaters'
+import Profile from 'pages/profile/Profile'
 
 const router = new Router({
   mode: 'hash',
