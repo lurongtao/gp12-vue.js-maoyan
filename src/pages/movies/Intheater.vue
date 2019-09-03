@@ -5,10 +5,9 @@
 </template>
 
 <script>
-import http from "utils/http"
-import MovieItem from "components/movie_list/MovieItem"
-import MovieList from 'components/movie_list/MovieList'
-
+import http from "utils/http";
+import MovieItem from "components/movie_list/MovieItem";
+import MovieList from "components/movie_list/MovieList";
 export default {
   components: {
     MovieList,
@@ -18,16 +17,14 @@ export default {
   data() {
     return {
       movieList: []
-    }
+    };
   },
 
   async created() {
     let result = await http.get({ url: "/ajax/movieOnInfoList?token=" });
     this.movieList = result.movieList;
-  },
-}
+  }
+};
 </script>
 
-<style lang="stylus" scoped>
-
-</style>
+<style lang="stylus" scoped></style>

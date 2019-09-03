@@ -38,12 +38,6 @@ export default {
   
   components: {
     MovieButton
-  },
-
-  filters: {
-    wh(value) {
-      return value.replace(/w\.h/, "192.270");
-    }
   }
 }
 </script>
