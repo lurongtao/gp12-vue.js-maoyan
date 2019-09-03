@@ -7,6 +7,17 @@ module.exports = {
         pages: path.resolve(__dirname, './src/pages'),
         assets: path.resolve(__dirname, './src/assets'),
         styles: path.resolve(__dirname, './src/assets/styles'),
+        components: path.resolve(__dirname, './src/components'),
+        utils: path.resolve(__dirname, './src/utils')
+      }
+    }
+  },
+
+  devServer: {
+    proxy: {
+      '/ajax': {
+        target: 'http://m.maoyan.com',
+        changeOrigin: true
       }
     }
   }

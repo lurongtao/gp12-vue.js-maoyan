@@ -86,6 +86,8 @@ div.index-container
   footer 
     height .5rem
     background #fff
+    position relative
+    z-index 1000
     ul
       display flex
       border1px(1px 0 0 0, #eee)
