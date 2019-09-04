@@ -13,24 +13,22 @@
 </template>
 
 <script>
-import http from "utils/http";
-import MovieItem from "./MovieItem";
+import http from "utils/http"
+import MovieItem from "./MovieItem"
+import BScroll from 'better-scroll'
 export default {
-  data() {
-    return {
-      movieList: []
-    };
-  },
+  mounted() {
+    let bScroll = new BScroll('.page', {
+      pullUpLoad: {
+        threshold: 50
+      }
+    })
 
-  async created() {
-    let result = await http.get({ url: "/ajax/movieOnInfoList?token=" });
-    this.movieList = result.movieList;
+    bScroll.on('pullingUp', () => {
+      this.$emit('onmessage', bScroll)
+    })
   },
-
-  components: {
-    MovieItem
-  }
-};
+}
 </script>
 
 <style lang='stylus' scoped>
@@ -39,7 +37,7 @@ export default {
   .tab-block
     height 100%
     .tab-content
-      overflow-y scroll
+      overflow hidden
       position relative
       height 100%
       .page

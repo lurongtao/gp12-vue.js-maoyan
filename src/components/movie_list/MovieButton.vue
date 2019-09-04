@@ -1,6 +1,6 @@
 <template>
   <div class="button-block" data-id="1215605">
-    <div class="btn" :class="showInfo.class"><span class="fix">{{showInfo.title}}</span></div>
+    <div class="btn" :class="showInfo.class" data-wishst="0"><span class="fix">{{showInfo.title}}</span></div>
   </div>
 </template>
 

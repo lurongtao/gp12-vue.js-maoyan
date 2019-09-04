@@ -17,12 +17,12 @@
               <span class="score-suffix">观众评</span>
               <span class="grade">{{movie.sc}}</span>
             </div>
-            <div class="score line-ellipsis" v-else-if="movie.showst===4">
+            <div class="score line-ellipsis" v-else-if="movie.showst===4 || movie.showst===1">
               <span class="grade">{{movie.wish}}</span>
               <span class="score-suffix">人想看</span>
             </div>
             <div class="actor line-ellipsis">主演: {{movie.star}}</div>
-            <div class="show-info line-ellipsis">{{movie.id}}{{movie.showInfo}}</div>
+            <div class="show-info line-ellipsis">{{movie.showInfo || movie.rt + '上映'}}</div>
           </div>
         </div>
         <MovieButton :showst="movie.showst" />
