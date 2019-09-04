@@ -2,9 +2,9 @@
   <MovieList @onmessage="handleMessage">
     <MostExpected></MostExpected>
     <div class="coming-list">
-      <div>
-        <p class="group-date">9月5日 周四</p>
-        <MovieItem v-for="movie in movieList" :key="movie.id" :movie="movie" />
+      <div v-for="(list, key) in comingList" :key="key">
+        <p class="group-date">{{key}}</p>
+        <MovieItem v-for="movie in list" :key="movie.id" :movie="movie" />
       </div>
     </div>
   </MovieList>
@@ -26,6 +26,15 @@ export default {
       movieList: [],
       finished: false,
       loading: false
+    }
+  },
+
+  computed: {
+    comingList() {
+      let groupedList = _.groupBy(this.movieList, (value) => {
+        return value.comingTitle
+      })
+      return groupedList
     }
   },
 

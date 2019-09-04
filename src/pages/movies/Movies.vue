@@ -18,9 +18,7 @@
       </ul>
     </nav>
     <section>
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
+      <router-view></router-view>
     </section>
   </div>
 </template>
