@@ -22,7 +22,7 @@
               <span class="score-suffix">人想看</span>
             </div>
             <div class="actor line-ellipsis">主演: {{movie.star}}</div>
-            <div class="show-info line-ellipsis">{{movie.showInfo}}</div>
+            <div class="show-info line-ellipsis">{{movie.id}}{{movie.showInfo}}</div>
           </div>
         </div>
         <MovieButton :showst="movie.showst" />
