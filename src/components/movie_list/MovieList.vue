@@ -3,9 +3,17 @@
     <div class="tab-block">
       <div class="tab-content">
         <div class="page n-hot active">
-          <div class="list-wrap" style="margin-top: 0px;">
+          <van-list
+            v-model="loaded"
+            :finished="finished"
+            :finished-text="'到底了'"
+            @load="onLoad()"
+            class="list-wrap"
+            :immediate-check="false"
+             style="margin-top: 0px;"
+          >
             <slot></slot>
-          </div>
+          </van-list>
         </div>
       </div>
     </div>
@@ -17,16 +25,18 @@ import http from "utils/http"
 import MovieItem from "./MovieItem"
 import BScroll from 'better-scroll'
 export default {
-  mounted() {
-    let bScroll = new BScroll('.page', {
-      pullUpLoad: {
-        threshold: 50
-      }
-    })
+  data() {
+    return {
+      loaded: false,
+      finished: false
+    }
+  },
 
-    bScroll.on('pullingUp', () => {
-      this.$emit('onmessage', bScroll)
-    })
+  methods: {
+    onLoad() {
+      this.loaded = true
+      this.$emit('onmessage', this)
+    }
   },
 }
 </script>
@@ -42,4 +52,7 @@ export default {
       height 100%
       .page
         height 100%
+.van-list
+  height 100%
+  overflow-y scroll
 </style>

@@ -9,21 +9,25 @@ const movieMixin = {
   },
 
   methods: {
-    async handleMessage(bScroll) {
-      let result = await http.get({
-        url: "/ajax/moreComingList?ci=1&token=&limit=" + this.limit + "&movieIds=" + this.chunkedMovieIds[this.page].join(',')
-      })
-
-      this.movieList = [
-        ...this.movieList,
-        ...result.coming
-      ]
-
-      this.$nextTick(() => {
-        bScroll.refresh()
-        bScroll.finishPullUp()
-        this.page++
-      })
+    async handleMessage(comp) {
+      if (this.page < this.chunkedMovieIds.length) {
+        let result = await http.get({
+          url: "/ajax/moreComingList?ci=1&token=&limit=" + this.limit + "&movieIds=" + this.chunkedMovieIds[this.page].join(',')
+        })
+  
+        this.movieList = [
+          ...this.movieList,
+          ...result.coming
+        ]
+  
+        this.$nextTick(() => {
+          comp.loaded = false
+          this.page++
+        })
+      } else {
+        comp.finished = true
+        comp.loaded = false
+      }
     }
   },
 }

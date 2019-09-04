@@ -1,10 +1,6 @@
 <template>
     <van-tabs>
       <van-tab :title="'基本用法'">
-        <van-pull-refresh
-          v-model="list[0].refreshing"
-          @refresh="onRefresh(0)"
-        >
           <van-list
             v-model="list[0].loading"
             :finished="list[0].finished"
@@ -14,10 +10,10 @@
             <van-cell
               v-for="item in list[0].items"
               :key="item"
-              :title="item"
-            />
+            >
+              <div>aaaa{{item}}</div>
+            </van-cell>
           </van-list>
-        </van-pull-refresh>
       </van-tab>
 
       <van-tab :title="'错误提示'">
@@ -81,6 +77,7 @@ export default {
 
   methods: {
     onLoad(index, isRefresh) {
+      console.log(0)
       const list = this.list[index];
       list.loading = true;
       setTimeout(() => {
@@ -120,6 +117,8 @@ export default {
 };
 </script>
 
-<style lang="less">
-
+<style lang="stylus" scoped>
+.van-list
+  height 200px
+  overflow-y scroll
 </style>
