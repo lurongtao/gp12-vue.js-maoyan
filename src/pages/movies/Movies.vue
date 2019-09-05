@@ -2,14 +2,14 @@
   <div class="movie-container">
     <nav>
       <ul>
-        <li>
+        <router-link tag="li" to="/city">
           北京
           <span class="yo-ico"></span>
-        </li>
+        </router-link>
         <li>
           <ul>
-            <router-link active-class="active" tag="li" to="/movies/intheater">正在热映</router-link>
-            <router-link active-class="active" tag="li" to="/movies/comingsoon">即将上映</router-link>
+            <router-link active-class="active" tag="li" to="/home/movies/intheater">正在热映</router-link>
+            <router-link active-class="active" tag="li" to="/home/movies/comingsoon">即将上映</router-link>
           </ul>
         </li>
         <li>
@@ -29,7 +29,9 @@ import { Icon } from 'vant'
 Vue.use(Icon)
 
 export default {
-  
+  methods: {
+    
+  },
 }
 </script>
 

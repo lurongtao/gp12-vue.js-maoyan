@@ -19,6 +19,10 @@ module.exports = {
       '/ajax': {
         target: 'http://m.maoyan.com',
         changeOrigin: true
+      },
+      '/dianying': {
+        target: 'http://m.maoyan.com',
+        changeOrigin: true
       }
     }
   }

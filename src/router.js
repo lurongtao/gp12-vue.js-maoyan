@@ -3,6 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+import Index from 'pages/index/Index'
+import City from 'pages/city/City'
+
 import Movies from 'pages/movies/Movies'
 import Theaters from 'pages/theaters/Theaters'
 import Profile from 'pages/profile/Profile'
@@ -15,32 +18,44 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/movies'
+      redirect: '/home',
     },
     {
-      path: '/movies',
-      component: Movies,
-      redirect: '/movies/intheater',
+      path: '/home',
+      component: Index,
+      redirect: '/home/movies',
       children: [
         {
-          path: 'intheater',
-          name: 'intheater',
-          component: Intheater
+          path: 'movies',
+          component: Movies,
+          redirect: '/home/movies/intheater',
+          children: [
+            {
+              path: 'intheater',
+              name: 'intheater',
+              component: Intheater
+            },
+            {
+              path: 'comingsoon',
+              name: 'comingsoon',
+              component: Comingsoon
+            }
+          ]
         },
         {
-          path: 'comingsoon',
-          name: 'comingsoon',
-          component: Comingsoon
+          path: 'theaters',
+          component: Theaters
+        },
+        {
+          path: 'profile',
+          component: Profile
         }
       ]
     },
     {
-      path: '/theaters',
-      component: Theaters
-    },
-    {
-      path: '/profile',
-      component: Profile
+      path: '/city',
+      name: 'city',
+      component: City
     }
   ]
 })
