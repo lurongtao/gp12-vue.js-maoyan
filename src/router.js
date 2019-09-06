@@ -5,6 +5,7 @@ Vue.use(Router)
 
 import Index from 'pages/index/Index'
 import City from 'pages/city/City'
+import Detail from 'pages/details/Detail'
 
 import Movies from 'pages/movies/Movies'
 import Theaters from 'pages/theaters/Theaters'
@@ -56,6 +57,11 @@ const router = new Router({
       path: '/city',
       name: 'city',
       component: City
+    },
+    {
+      path: '/detail/:id',
+      name: 'detail',
+      component: Detail
     }
   ]
 })

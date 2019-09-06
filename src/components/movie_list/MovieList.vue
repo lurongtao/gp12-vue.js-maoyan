@@ -21,7 +21,8 @@ export default {
     let bScroll = new BScroll('.page', {
       pullUpLoad: {
         threshold: 50
-      }
+      },
+      click: true
     })
 
     bScroll.on('pullingUp', () => {

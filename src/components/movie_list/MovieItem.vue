@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="item" @click="handleClick(movie.id)">
     <div class="main-block">
       <div class="avatar" sort-flag>
         <div class="default-img-bg">
@@ -38,6 +38,12 @@ export default {
   
   components: {
     MovieButton
-  }
+  },
+
+  methods: {
+    handleClick(id) {
+      this.$router.push('/detail/' + id)
+    }
+  },
 }
 </script>

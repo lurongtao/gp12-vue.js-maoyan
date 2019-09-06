@@ -85,6 +85,9 @@ export default {
     }, {})
 
     this.cities = newCities
+
+    this.letterArray = Object.keys(this.cities)
+    this.size = this.letterArray.length
   },
 
   methods: {
@@ -104,13 +107,21 @@ export default {
       // console.log('start')
     },
 
-    handleTouchMove(e) {
+    // handleTouchMove(e) {
+    //   return _.throttle(() => {
+    //     console.log(0)
+    //   }, 1000)
+    // },
+    handleTouchMove: _.throttle(function(e) {
       let clientY = e.touches[0].clientY
       let pos = clientY - this.navHotPos - 35
-      let index = Math.abs(Math.ceil(pos/this.letterHeight))
-      let letter = Object.keys(this.cities)[index]
-      this.bScroll.scrollToElement(this.$refs[letter][0])
-    },
+      let index = Math.ceil(pos/this.letterHeight)
+      
+      if (index < this.size && index >= 0) {
+        let letter = this.letterArray[index]
+        this.bScroll.scrollToElement(this.$refs[letter][0])
+      }
+    }, 100),
 
     handleTouchEnd() {
       // console.log('end')
@@ -118,7 +129,9 @@ export default {
   },
 
   mounted() {
-    this.bScroll = new BScroll('#city-list')
+    this.bScroll = new BScroll('#city-list', {
+      click: true
+    })
     this.navHotPos = this.$refs['navhot'].getBoundingClientRect().top
     this.letterHeight = this.$refs['navhot'].offsetHeight
   },
