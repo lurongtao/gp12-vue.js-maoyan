@@ -3,7 +3,7 @@
     <nav>
       <ul>
         <router-link tag="li" to="/city">
-          北京
+          {{city}}
           <span class="yo-ico"></span>
         </router-link>
         <li>
@@ -31,6 +31,11 @@ Vue.use(Icon)
 export default {
   methods: {
     
+  },
+  computed: {
+    city() {
+      return this.$store.state.city.nm
+    }
   },
 }
 </script>
@@ -64,7 +69,7 @@ export default {
       border1px(0 0 1px 0)
       > li
         &:nth-child(1)
-          flex 1
+          flex 12
           font-size .15rem
           display flex
           align-items center
@@ -74,7 +79,7 @@ export default {
             &::after
               content: '\f033'
         &:nth-child(2)
-          flex 3
+          flex 30
           ul
             display flex
             li
@@ -89,7 +94,7 @@ export default {
                 height .44rem
                 color #e54847
         &:nth-child(3)
-          flex 1
+          flex 10
           display flex
           justify-content flex-end
           align-items center

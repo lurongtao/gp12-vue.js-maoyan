@@ -25,11 +25,13 @@ export default {
   },
 
   async created() {
-    let result = await http.get({ url: "/ajax/movieOnInfoList?token=" })
-    this.movieList = result.movieList
-
-    this.movieIds = result.movieIds.slice(this.limit + 2)
-    this.chunkedMovieIds = _.chunk(this.movieIds, this.limit)
+    let result = await http.get({ url: "/ajax/movieOnInfoList?token=&ci=" + this.city })
+    if (result.movieList.length > 0) {
+      this.movieList = result.movieList
+  
+      this.movieIds = result.movieIds.slice(this.limit + 2)
+      this.chunkedMovieIds = _.chunk(this.movieIds, this.limit)
+    }
   }
 };
 </script>

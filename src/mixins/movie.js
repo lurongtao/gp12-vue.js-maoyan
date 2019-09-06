@@ -8,22 +8,30 @@ const movieMixin = {
     this.limit = 10
   },
 
+  computed: {
+    city() {
+      return this.$store.state.city.id
+    }
+  },
+
   methods: {
     async handleMessage(bScroll) {
-      let result = await http.get({
-        url: "/ajax/moreComingList?ci=1&token=&limit=" + this.limit + "&movieIds=" + this.chunkedMovieIds[this.page].join(',')
-      })
-
-      this.movieList = [
-        ...this.movieList,
-        ...result.coming
-      ]
-
-      this.$nextTick(() => {
-        bScroll.refresh()
-        bScroll.finishPullUp()
-        this.page++
-      })
+      if (this.chunkedMovieIds[this.page]) {
+        let result = await http.get({
+          url: "/ajax/moreComingList?ci=" + this.city + "&token=&limit=" + this.limit + "&movieIds=" + this.chunkedMovieIds[this.page].join(',')
+        })
+  
+        this.movieList = [
+          ...this.movieList,
+          ...result.coming
+        ]
+  
+        this.$nextTick(() => {
+          bScroll.refresh()
+          bScroll.finishPullUp()
+          this.page++
+        })
+      }
     }
   },
 }

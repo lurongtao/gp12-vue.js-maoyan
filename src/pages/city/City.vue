@@ -1,55 +1,80 @@
 <template>
+<div>
   <section id="city-list" class="city-list-container" style="display: block;">
-    <section>
-      <div id="locate" class="city-title">定位城市</div>
-      <div class="city-list city-list-inline clearfix">
-        <div class="location-city">定位失败，请点击重试</div>
-      </div>
-    </section>
+    <div>
+      <section>
+        <div ref="locate" class="city-title">定位城市</div>
+        <div class="city-list city-list-inline clearfix">
+          <div class="location-city">定位失败，请点击重试</div>
+        </div>
+      </section>
 
-    <section class="history-city-list"></section>
+      <section class="history-city-list"></section>
 
-    <section>
-      <div id="hot" class="city-title">热门城市</div>
-      <div class="city-list city-list-inline clearfix">
-        <div class="city-item" data-nm="上海" data-id="10">上海</div>
-      </div>
-    </section>
+      <section>
+        <div ref="hot" class="city-title">热门城市</div>
+        <div class="city-list city-list-inline clearfix">
+          <div class="city-item"
+            v-for="hotcity in hotcities.slice(0, 10)"
+            :key="hotcity.id"
+            @click="pickCity(hotcity)"
+          >{{hotcity.nm}}</div>
+        </div>
+      </section>
 
-    <section>
-      <div id="A" class="city-title city-title-letter">A</div>
-      <div class="city-list city-list-block clearfix">
-        <div class="city-item" data-nm="阿拉善盟" data-id="150">阿拉善盟</div>
-
-        <div class="city-item" data-nm="鞍山" data-id="151">鞍山</div>
-
-      </div>
-    </section>
-
-    <section class="nav">
-      <div class="nav-item" data-id="locate">定位</div>
-      <div class="nav-item" data-id="hot">热门</div>
-      <div class="nav-letter nav-item" data-id="A"
-        v-for="(letter, key) in cities"
+      <section
+        v-for="(item, key) in cities"
         :key="key"
-      >{{key}}</div>
-    </section>
+      >
+        <div :ref="key" class="city-title city-title-letter">{{key}}</div>
+        <div class="city-list city-list-block clearfix">
+          <div class="city-item"
+            v-for="city in item"
+            :key="city.id"
+            @click="pickCity(city)"
+          >{{city.nm}}</div>
+        </div>
+      </section>
+
+    </div>
   </section>
+  <section class="nav">
+    <div class="nav-item"
+      @click="scrollToElement('locate')"
+    >定位</div>
+    <div class="nav-item"
+      @click="scrollToElement('hot')"
+      ref="navhot"
+    >热门</div>
+    <div class="nav-letter nav-item"
+      v-for="(city, key) in cities"
+      :key="key"
+      @click="scrollToElement(key)"
+      @touchstart="handleTouchStart"
+      @touchmove="handleTouchMove"
+      @touchend="handleTouchEnd"
+    >{{key}}</div>
+  </section>
+</div>
 </template>
 
 <script>
 import http from 'utils/http'
 import _ from 'lodash'
+import BScroll from 'better-scroll'
 export default {
   data() {
     return {
-      cities: {}
+      cities: {},
+      hotcities: []
     }
   },
 
   async created() {
     let result = await http.get({ url: '/dianying/cities.json' })
-    
+
+    this.hotcities = result.cts
+
     let cities = _.groupBy(result.cts, (value) => {
       return value.py.substring(0, 1).toUpperCase()
     })
@@ -62,6 +87,47 @@ export default {
     this.cities = newCities
   },
 
+  methods: {
+    pickCity({id, nm}) {
+      this.$store.dispatch('changeCity', {
+        id,
+        nm
+      })
+      this.$router.push('/home')
+    },
 
+    scrollToElement(key) {
+      this.bScroll.scrollToElement(this.$refs[key][0] || this.$refs[key])
+    },
+
+    handleTouchStart() {
+      // console.log('start')
+    },
+
+    handleTouchMove(e) {
+      let clientY = e.touches[0].clientY
+      let pos = clientY - this.navHotPos - 35
+      let index = Math.abs(Math.ceil(pos/this.letterHeight))
+      let letter = Object.keys(this.cities)[index]
+      this.bScroll.scrollToElement(this.$refs[letter][0])
+    },
+
+    handleTouchEnd() {
+      // console.log('end')
+    }
+  },
+
+  mounted() {
+    this.bScroll = new BScroll('#city-list')
+    this.navHotPos = this.$refs['navhot'].getBoundingClientRect().top
+    this.letterHeight = this.$refs['navhot'].offsetHeight
+  },
 }
 </script>
+
+<style lang="stylus" scoped>
+#city-list
+  padding-right .2rem
+.nav
+  z-index 10000
+</style>

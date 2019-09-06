@@ -40,7 +40,7 @@ export default {
 
   async created() {
     let result = await http.get({
-      url: "/ajax/comingList?ci=1&token=&limit=" + this.limit
+      url: "/ajax/comingList?ci=" + this.city + "&token=&limit=" + this.limit
     })
     this.movieList = result.coming
     this.movieIds = result.movieIds.slice(this.limit)
