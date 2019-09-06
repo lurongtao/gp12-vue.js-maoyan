@@ -9,19 +9,28 @@ export default new Vuex.Store({
     city: {
       id: 1,
       nm: '北京'
-    }
+    },
+    position: 0
   },
 
   mutations: {
     changeCity(state, city) {
       state.city = city
       store.set('city', city)
+    },
+
+    changePosition(state, position) {
+      state.position = position
     }
   },
 
   actions: {
     changeCity({commit}, city) {
       commit('changeCity', city)
+    },
+
+    changePosition({commit}, position) {
+      commit('changePosition', position)
     }
   }
 })

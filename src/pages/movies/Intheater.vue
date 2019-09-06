@@ -1,5 +1,5 @@
 <template>
-  <MovieList @onmessage="handleMessage">
+  <MovieList @onmessage="handleMessage" @onreceivescroll="handleReceiveScroll">
     <movieItem v-for="movie in movieList" :key="movie.id" :movie="movie" />
   </MovieList>
 </template>
@@ -24,6 +24,10 @@ export default {
     }
   },
 
+  render() {
+
+  },
+
   async created() {
     let result = await http.get({ url: "/ajax/movieOnInfoList?token=&ci=" + this.city })
     if (result.movieList.length > 0) {
@@ -31,6 +35,11 @@ export default {
   
       this.movieIds = result.movieIds.slice(this.limit + 2)
       this.chunkedMovieIds = _.chunk(this.movieIds, this.limit)
+
+      this.$nextTick(() => {
+        this.bScroll.refresh()
+        this.bScroll.scrollTo(0, this.$store.state.position, 0)
+      })
     }
   }
 };

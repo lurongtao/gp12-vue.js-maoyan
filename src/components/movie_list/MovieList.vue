@@ -28,6 +28,12 @@ export default {
     bScroll.on('pullingUp', () => {
       this.$emit('onmessage', bScroll)
     })
+
+    bScroll.on('touchEnd', ({y}) => {
+      this.$store.dispatch('changePosition', y)
+    })
+
+    this.$emit('onreceivescroll', bScroll)
   },
 }
 </script>

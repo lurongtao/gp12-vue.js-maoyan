@@ -21,18 +21,9 @@ export default {
     }
   },
 
-  // async created() {
-  //   let result = await http.get({url: '/ajax/detailmovie?movieId=' + this.$route.params.id})
-  //   this.title = result.detailMovie.nm
-  // },
-
-  async activated() {
+  async created() {
     let result = await http.get({url: '/ajax/detailmovie?movieId=' + this.$route.params.id})
     this.title = result.detailMovie.nm
-  },
-
-  deactivated() {
-    // console.log('deactivated')
   },
   
   methods: {

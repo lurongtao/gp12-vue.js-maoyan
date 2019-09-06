@@ -1,5 +1,5 @@
 <template>
-  <MovieList @onmessage="handleMessage">
+  <MovieList @onmessage="handleMessage" @onreceivescroll="handleReceiveScroll">
     <MostExpected></MostExpected>
     <div class="coming-list">
       <div v-for="(list, key) in comingList" :key="key">
@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import _ from "lodash";
-import http from "utils/http";
+import _ from "lodash"
+import http from "utils/http"
 import movieMixin from 'mixins/movie'
-import MostExpected from "./MostExpected";
-import MovieList from "components/movie_list/MovieList";
-import MovieItem from "components/movie_list/MovieItem";
+import MostExpected from "./MostExpected"
+import MovieList from "components/movie_list/MovieList"
+import MovieItem from "components/movie_list/MovieItem"
 
 export default {
   mixins: [movieMixin],
@@ -38,13 +38,18 @@ export default {
     }
   },
 
-  async created() {
+  async mounted() {
     let result = await http.get({
       url: "/ajax/comingList?ci=" + this.city + "&token=&limit=" + this.limit
     })
     this.movieList = result.coming
     this.movieIds = result.movieIds.slice(this.limit)
     this.chunkedMovieIds = _.chunk(this.movieIds, this.limit)
+
+    this.$nextTick(() => {
+      this.bScroll.refresh()
+      this.bScroll.scrollTo(0, this.$store.state.position, 0)
+    })
   },
 
   components: {

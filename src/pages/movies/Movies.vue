@@ -8,8 +8,8 @@
         </router-link>
         <li>
           <ul>
-            <router-link active-class="active" tag="li" to="/home/movies/intheater">正在热映</router-link>
-            <router-link active-class="active" tag="li" to="/home/movies/comingsoon">即将上映</router-link>
+            <router-link @click.native="handleClick" active-class="active" tag="li" to="/home/movies/intheater">正在热映</router-link>
+            <router-link @click.native="handleClick" active-class="active" tag="li" to="/home/movies/comingsoon">即将上映</router-link>
           </ul>
         </li>
         <li>
@@ -30,7 +30,9 @@ Vue.use(Icon)
 
 export default {
   methods: {
-    
+    handleClick() {
+      this.$store.dispatch('changePosition', 0)
+    }
   },
   computed: {
     city() {

@@ -32,6 +32,10 @@ const movieMixin = {
           this.page++
         })
       }
+    },
+    
+    handleReceiveScroll(bScroll) {
+      this.bScroll = bScroll
     }
   },
 }
