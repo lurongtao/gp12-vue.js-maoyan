@@ -1,8 +1,7 @@
-import http from "utils/http"
-
 const movieMixin = {
   beforeCreate() {
-    this.page = 0
+    let from = this.$route.name === 'intheater' ? 'intheaters' : 'comingsoon'
+    this.page = this.$store.state[from].page
     this.movieIds = []
     this.chunkedMovieIds = []
     this.limit = 10
@@ -17,14 +16,27 @@ const movieMixin = {
   methods: {
     async handleMessage(bScroll) {
       if (this.chunkedMovieIds[this.page]) {
-        let result = await http.get({
-          url: "/ajax/moreComingList?ci=" + this.city + "&token=&limit=" + this.limit + "&movieIds=" + this.chunkedMovieIds[this.page].join(',')
+
+        await this.$store.dispatch('loadMoreData', { 
+          limit: this.limit, 
+          movieIds: this.chunkedMovieIds[this.page].join(','),
+          page: this.page + 1,
+          from: this.$route.name
         })
+
+        let from
+        let type
+        if (this.$route.name === 'intheater') {
+          from = 'intheaters'
+          type = 'movieList'
+        } else {
+          from = 'comingsoon'
+          type = 'coming'
+        }
+        
+        let result = this.$store.state[from].data
   
-        this.movieList = [
-          ...this.movieList,
-          ...result.coming
-        ]
+        this.movieList = result[type]
   
         this.$nextTick(() => {
           bScroll.refresh()

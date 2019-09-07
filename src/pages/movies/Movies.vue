@@ -32,6 +32,7 @@ export default {
   methods: {
     handleClick() {
       this.$store.dispatch('changePosition', 0)
+      this.$store.dispatch('changePage')
     }
   },
   computed: {

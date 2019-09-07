@@ -39,10 +39,13 @@ export default {
   },
 
   async mounted() {
-    let result = await http.get({
-      url: "/ajax/comingList?ci=" + this.city + "&token=&limit=" + this.limit
-    })
+    if (this.$store.state.comingsoon.page === 0) {
+      await this.$store.dispatch('loadComingsoonData', this.limit)
+    }
+
+    let result = this.$store.state.comingsoon.data
     this.movieList = result.coming
+
     this.movieIds = result.movieIds.slice(this.limit)
     this.chunkedMovieIds = _.chunk(this.movieIds, this.limit)
 

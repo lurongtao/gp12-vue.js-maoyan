@@ -11,7 +11,10 @@ let buttonInfo = [
     class: 'toggle-wish-btn',
     title: '想看'
   },
-  {},
+  {
+    class: 'toggle-wish-btn',
+    title: '想看'
+  },
   {
     class: 'normal',
     title: '购票'

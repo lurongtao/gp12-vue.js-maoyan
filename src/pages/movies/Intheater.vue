@@ -29,7 +29,12 @@ export default {
   },
 
   async created() {
-    let result = await http.get({ url: "/ajax/movieOnInfoList?token=&ci=" + this.city })
+    if (this.$store.state.intheaters.page === 0) {
+      await this.$store.dispatch('loadIntheaterData')
+    }
+
+    let result = this.$store.state.intheaters.data
+
     if (result.movieList.length > 0) {
       this.movieList = result.movieList
   

@@ -17,7 +17,7 @@
               <span class="score-suffix">观众评</span>
               <span class="grade">{{movie.sc}}</span>
             </div>
-            <div class="score line-ellipsis" v-else-if="movie.showst===4 || movie.showst===1">
+            <div class="score line-ellipsis" v-else-if="movie.showst===4 || movie.showst===1 || movie.showst === 2">
               <span class="grade">{{movie.wish}}</span>
               <span class="score-suffix">人想看</span>
             </div>
