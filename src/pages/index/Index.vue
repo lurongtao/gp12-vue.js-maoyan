@@ -2,7 +2,12 @@
   <div class="index-container">
     <header>猫眼电影</header>
     <main>
-      <router-view></router-view>
+      <transition
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+      >
+        <router-view class="layout"></router-view>
+      </transition>
     </main>
     <footer>
       <ul>
@@ -83,6 +88,10 @@ div.index-container
   main
     flex 1
     background #fff
+    position relative
+    .layout
+      position absolute
+      width 100%
   footer 
     height .5rem
     background #fff

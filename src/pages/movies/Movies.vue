@@ -18,7 +18,12 @@
       </ul>
     </nav>
     <section>
-      <router-view></router-view>
+      <transition
+        :enter-active-class="`animated ${slideEnter}`"
+        :leave-active-class="`animated ${slideLeave}`"
+      >
+        <router-view class="layout"></router-view>
+      </transition>
     </section>
   </div>
 </template>
@@ -29,6 +34,13 @@ import { Icon } from 'vant'
 Vue.use(Icon)
 
 export default {
+  data() {
+    return {
+      slideEnter: '',
+      slideLeave: ''
+    }
+  },
+
   methods: {
     handleClick() {
       this.$store.dispatch('changePosition', 0)
@@ -40,6 +52,18 @@ export default {
       return this.$store.state.city.nm
     }
   },
+
+  watch: {
+    $route(to, from) {
+      if (to.meta > from.meta) {
+        this.slideEnter = 'slideInRight'
+        this.slideLeave = 'slideOutLeft'
+      } else {
+        this.slideEnter = 'slideInLeft'
+        this.slideLeave = 'slideOutRight'
+      }
+    }
+  }
 }
 </script>
 
@@ -104,6 +128,10 @@ export default {
   section 
     flex 1
     overflow hidden
+    position relative
+    .layout
+      position absolute
+      width 100%
 
 >>> .tab-content .list-wrap .item 
   padding-right .15rem !important

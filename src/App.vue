@@ -5,6 +5,7 @@
 <script>
 import store from 'store'
 import 'styles/reset.css'
+import 'styles/animate.css'
 import 'styles/maoyan.css'
 import 'utils/filters.js'
 
