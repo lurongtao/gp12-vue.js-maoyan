@@ -14,3 +14,39 @@ https://www.cnblogs.com/jszhp/p/9549706.html
 2019-09-03:
 https://www.npmjs.com/package/axios
 http://www.axios-js.com/docs/
+
+
+2019-09-10
+联调
+前后端不分离的发布模式
+前后端分离的发布模式
+
+lsof -i:80
+kill -9 pid
+
+windows:
+1、启动nginx
+start nginx
+2、停止nginx
+nginx -s stop
+
+mac:
+1、启动nginx
+nginx
+2、停止nginx
+nginx -s stop
+
+server {
+  listen 80;
+  server_name dev.gp12.cn;
+  root /Users/felix/Desktop/workspace/gp-12/Vue.js/project/maoyan-be/public;
+  index index.html;
+
+  location ~* /ajax {
+    proxy_pass http://localhost:3000;
+  }
+  
+  location ~* /java {
+    proxy_pass http://192.168.10.8:4000;
+  }
+}

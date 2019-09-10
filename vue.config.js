@@ -1,6 +1,8 @@
 const path = require('path')
 
 module.exports = {
+  publicPath: 'http://fe.gp12.cn:8088',
+  
   configureWebpack: {
     resolve: {
       alias: {
@@ -17,7 +19,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/ajax': {
-        target: 'http://m.maoyan.com',
+        target: 'http://dev.gp12.cn',
         changeOrigin: true
       },
       '/dianying': {
